@@ -1,1 +1,1 @@
-# ml-inference-engine
+# Inference Engine for Neural Networks
