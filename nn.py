@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
         test_loss /= len(test_loader.dataset)
         accuracy = 100.0 * correct / len(test_loader.dataset)
-        print(
+        tqdm.tqdm.write(
             f"Epoch {epoch + 1} - Test loss: {test_loss:.4f}, Accuracy: {accuracy:.2f}%"
         )
 
