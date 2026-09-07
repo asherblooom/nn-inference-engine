@@ -1,6 +1,7 @@
 import torch
 from torch import nn, optim
 from torchvision import datasets, transforms
+import tqdm
 
 
 class Net(nn.Module):
@@ -44,8 +45,17 @@ if __name__ == "__main__":
     optimizer = optim.SGD(model.parameters(), lr=0.01)
 
     for epoch in range(10):
+        pbar = tqdm.tqdm(
+            train_loader,
+            desc=f"Training (epoch {epoch + 1}/10)",
+            unit="batch",
+            colour="#00ced1",
+            leave=False,
+            ascii="·━",
+            bar_format="{desc}: {percentage:3.0f}% {bar:30} {n_fmt}/{total_fmt} \033[90m[{elapsed}<{remaining}, {rate_fmt}]\033[0m",
+        )
         model.train()
-        for batch_idx, (data, target) in enumerate(train_loader):
+        for data, target in pbar:
             data, target = data.to(device), target.to(device)
             optimizer.zero_grad()
             output = model(data)
@@ -56,6 +66,15 @@ if __name__ == "__main__":
         model.eval()
         test_loss = 0
         correct = 0
+        pbar = tqdm.tqdm(
+            test_loader,
+            desc=f"Testing (epoch {epoch + 1}/10)",
+            unit="batch",
+            colour="#00ced1",
+            leave=False,
+            ascii="·━",
+            bar_format="{desc}: {percentage:3.0f}% {bar:30} {n_fmt}/{total_fmt} \033[90m[{elapsed}<{remaining}, {rate_fmt}]\033[0m",
+        )
         with torch.no_grad():
             for data, target in test_loader:
                 data, target = data.to(device), target.to(device)
