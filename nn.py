@@ -90,5 +90,7 @@ if __name__ == "__main__":
         )
 
     dummy_input = torch.randn(1, 1, 28, 28, device=device)
-    torch.onnx.export(model, dummy_input, "mnist_ffn_complex.onnx")
+    torch.onnx.export(
+        model, dummy_input, "mnist_ffn.onnx", export_params=True, external_data=False
+    )
     print("Model saved as mnist_ffn.onnx")
