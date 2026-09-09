@@ -70,3 +70,5 @@ Testing/
 
 # mnist dataset folder
 data/
+
+.clang-format
